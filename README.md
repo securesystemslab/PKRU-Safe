@@ -1,10 +1,13 @@
 # PKRU-Safe
 
-An Intel MPK aware allocator and compiler extension project to protect data in safe Rust from unsafe libraries.
+PKRU-Safe is a new system that uses an MPK aware allocator and set of compiler extensions to protect 
+data exclusively used by Rust code from abuse by memory unsafe legacy components.
 
 This is the main repository for the PKRU-Safe project. It contains PKRU-Safe instrumentation, 
 a modified Rust compiler, a modified LLVM compiler, test programs, automation scripts, and 
 documentation.
+
+PKRU-Safe is distributed under the MIT license, see [LICENSE-MIT](https://github.com/securesystemslab/PKRU-Safe/blob/main/LICENSE-MIT) for details.
 
 ## Documentation Quick Links
 
@@ -15,50 +18,58 @@ documentation.
   * [Docker Setup](#docker-setup)
   * [Local Setup](#local-setup)
 * [User Guide](#user-guide)
-* [Tests](#tests)
+* [Tests](#pkru-tests)
+* [Citation](#citation)
 
 ## Repository Overview
 
-This project repository is a single point landing page for the collection of works related to the [paper][paper-link] referenced above. The contents of the repository are organized as such:
+This project repository is a single point landing page for the collection of works related to the paper [PKRU-Safe: Automatically Locking Down the Heap Between Safe and Unsafe Languages][paper-link] referenced above. The contents of the repository are organized as such:
 
 ### Instrumentation
 
-* [mpk-libc](instrumentation/mpk-libc) - Rust Intel MPK bindings and helper function library
-* [mpk-protector](instrumentation/mpk-protector) - Provides a compiler plugin to automatically provide wrapper functions for annotated crate
-* [pkalloc](instrumentation/pkalloc) - Provides rust bindings to PKRU-Safe version of jemalloc
-  * [allocator](instrumentation/pkalloc/allocator) - PKRU-Safe allocator helper for pkalloc
-  * [jemalloc](instrumentation/pkalloc/jemalloc) - PKRU-Safe jemalloc
-* [pkmallocator](instrumentation/pkmallocator) - Provides a rust interface to a global allocator for PKRU-Safe
+* [mpk-libc](https://github.com/securesystemslab/pkru-safe-mpk-libc) - Rust Intel MPK bindings and helper function library
+* [mpk-protector](https://github.com/securesystemslab/pkru-safe-mpk-protector) - Provides a compiler plugin to automatically provide wrapper functions for annotated crate
+* [pkalloc](https://github.com/securesystemslab/pkru-safe-pkalloc) - Provides rust bindings to PKRU-Safe version of jemalloc
+  * [allocator](https://github.com/securesystemslab/pkru-safe-allocator-helper) - PKRU-Safe allocator helper for pkalloc
+  * [jemalloc](https://github.com/securesystemslab/pkru-safe-jemalloc) - PKRU-Safe jemalloc
+* [pkmallocator](https://github.com/securesystemslab/pkru-safe-pkmallocator) - Provides a rust interface to a global allocator for PKRU-Safe
 
 ### Compiler Extensions
 
-* [cargo](cargo) - PKRU-Safe extended Cargo project
-* [llvm-project](llvm-project) - PKRU-Safe passes and runtime extended LLVM compiler
-* [rust](rust) - PKRU-Safe extended Rust compiler
+* [cargo](https://github.com/securesystemslab/pkru-safe-cargo) - PKRU-Safe extended Cargo project
+* [llvm-project](https://github.com/securesystemslab/llvm-project/tree/pkru-safe) - PKRU-Safe passes and runtime extended LLVM compiler
+* [rust](https://github.com/securesystemslab/rust/tree/pkru-safe) - PKRU-Safe extended Rust compiler
 
 ### Tests
 
-* [micro-benchmarks](tests/micro-benchmarks) - Micro-benchmarks for showing call-gate overhead
-* [pkru-safe-example](tests/pkru-safe-example) - Minimum working example of PKRU-Safe
+* [micro-benchmarks](https://github.com/securesystemslab/pkru-safe-bench) - Micro-benchmarks for showing call-gate overhead
+* [pkru-safe-example](https://github.com/securesystemslab/pkru-safe-example) - Minimum working example of PKRU-Safe
 * Servo
   * Benchmarks
-    * [JetStream2](tests/servo/JetStream2) - Offline JetStream2 benchmark
-    * [Kraken](tests/servo/Kraken) - Offline Kraken benchmark
-    * [Octane2](tests/servo/Octane2) - Offline Octane2 benchmark
+    * [JetStream2](https://github.com/securesystemslab/pkru-safe-JetStream2) - Offline JetStream2 benchmark
+    * [Kraken](https://github.com/securesystemslab/pkru-safe-kraken) - Offline Kraken benchmark
+    * [Octane2](https://github.com/securesystemslab/pkru-safe-octane2) - Offline Octane2 benchmark
+    * [pkru-safe-cve-html](https://github.com/securesystemslab/pkru-safe-cve-html) - Offline Servo Spidermonkey CVE exploit
   * PKRU-Safe Servo
-    * [mozjs](tests/servo/mozjs) - Rust bindings for SpiderMonkey for use with Servo
-    * [rust-mozjs](tests/servo/rust-mozjs) - Rust bindings to SpiderMonkey
-    * [servo](tests/servo/servo) - Prototype web browser engine written in Rust
+    * [mozjs](https://github.com/securesystemslab/pkru-safe-mozjs) - Rust bindings for SpiderMonkey for use with Servo
+    * [rust-mozjs](https://github.com/securesystemslab/pkru-safe-rust-mozjs) - Rust bindings to SpiderMonkey
+    * [servo](https://github.com/securesystemslab/pkru-safe-servo) - Web browser engine written in Rust
 
 ### Automation
 
-* [Dockerfile](#TODO)
-* [setup](#TODO)
+* [Dockerfile][docker-file]
+* [setup](https://github.com/securesystemslab/pkru-safe-automation.git)
 
 ## Hardware Requirements
 
 This project depends on a Memory Protection Key (MPK) hardware and thus requires a processor 
-that contains MPK.
+that supports MPK. To check that your system supports MPK, run the following command:
+
+```sh
+cat /proc/cpuinfo | grep pku
+
+# flags       : ... pku ...
+```
 
 ## Experimental Environment
 
@@ -69,7 +80,7 @@ that contains MPK.
   * Intel Xeon Silver 4110 (2.10 GHz)
   * 48 GB of DDR4 EEC Memory
 
-### Author's Docker Container
+### Author Docker Container
 
 All experiments were run in a docker container based on Debian Buster on the Author's system ([DockerImage][docker-image]). If instead you wish to build the docker image yourself, follow along in the instructions under [Docker Setup](#docker-setup). An overview of the author's ([DockerImage][docker-image]) is shown below:
 
@@ -81,9 +92,9 @@ All experiments were run in a docker container based on Debian Buster on the Aut
     * pkru-safe-bench - PKRU-Safe micro-benchmarks
     * pkru-safe-cve-html - Simple html page for Spidermonkey CVE-2019-11707
     * pkru-safe-example - Minimum working example for PKRU-Safe
-    * servo-vanilla
-    * servo-step
-    * servo-step-no-mpk
+    * servo-vanilla - Servo 1 commit before author extension
+    * servo-step - PKRU-Safe enabled Servo
+    * servo-step-no-mpk - PKRU-Safe with mpk-call-gates turned off for overhead comparison
   * rust - Extended Rust compiler
 
 ## Setup
@@ -99,7 +110,7 @@ build and test PKRU-Safe on your own system, skip ahead to [Local Setup](#local-
 
 If you have downloaded the [pre-built image][docker-image], then skip ahead to the docker run commands.
 
-To build the docker image, you can either download the [Dockerfile][docker-file], or clone the [automation folder](automation).
+To build the docker image, you can either download the [Dockerfile][docker-file], or clone the [automation folder](https://github.com/securesystemslab/pkru-safe-automation.git).
 
 1. Clone Automation Repository:
 ```sh
@@ -120,7 +131,7 @@ docker run -it --security-opt seccomp=unconfined --name <container-name> mpk/dev
 
 ### Local Setup
 
-1. Clone Automation Repository:
+1. Clone automation repository:
 ```sh
 git clone https://github.com/securesystemslab/pkru-safe-automation.git automation
 cd automation
@@ -144,13 +155,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustu.rs | sh -s -- --default-to
 source $HOME/.cargo/bin
 ```
 
-4. Clone and Install:
+4. Clone and install:
 
 These instructions assume you are working in your `$HOME` directory. You can change
 the default folder being used by altering the $INSTALL_DIR variable in  the
 [sources.sh](https://github.com/securesystemslab/pkru-safe-automation/blob/main/sources.sh) 
-file. Additionally, change the `$SOURCES` variable to the location of the [automation](automation) 
-folder you cloned in [Step 1](local-setup).
+file. Additionally, change the `$SOURCES` variable to the location of the 
+[automation](https://github.com/securesystemslab/pkru-safe-automation.git) folder you cloned in [Step 1](#local-setup).
 
 ```sh
 cd $HOME
@@ -204,7 +215,7 @@ the [lib.rs](https://github.com/securesystemslab/pkru-safe-example/blob/main/pkr
 /// (WARNING: Rust requires these annotations to be at the top of the file to work correctly.)
 ```
 
-The final requirement if that you change the build profiles in the 
+The final requirement is that you change the build profiles in the 
 [Cargo.toml](https://github.com/securesystemslab/pkru-safe-example/blob/main/Cargo.toml) of 
 the root Rust project that depends on the libraries you just modified.
 
@@ -225,6 +236,7 @@ codegen-units = 1
 PKRU-Safe disables all sharing between trusted and untrusted compartments, thus if you build and 
 run the [minimum working example][mwe] it will crash where the C library attempts to access Rust data.
 
+1. Build initial pkru-safe-example
 ```sh
 cd pkru-safe-example
 cargo build --release
@@ -238,6 +250,7 @@ cargo build --release
 Since we know this access was meant to be intended behavior, we will need to profile the application
 to inform PKRU-Safe of the shared access of this data.
 
+2. Build profiling binary
 ```sh
 cargo clean
 
@@ -255,6 +268,7 @@ This folder contains all of the allocation sites found by the runtime that need 
 allocations. Once we have finished all tests we want to run on the profiling version, we will 
 build it again and pass the compiler the `TestResults` folder.
 
+3. Build instrumented binary
 ```sh
 cargo clean
 
@@ -271,21 +285,17 @@ cargo rustc --release -- -C enable-untrusted=dynamic -C mpk_use=TestResults
 Now, any access from C code outside of the approved access patterns from profiling will fail and 
 generate a segfault.
 
-## Tests
+## PKRU Tests
 
 ### PKRU-Safe Example
 
-[PKRU-Safe example](tests/pkru-safe-example) is a minimum working example to highlight how to 
-set up a Rust project to use PKRU-Safe as well as demonstrate how PKRU-Safe works on a simple 
-example. This programs consists of a single allocation which is shared and then written in a 
+[PKRU-Safe example](https://github.com/securesystemslab/pkru-safe-example) is a minimum working example to highlight how to set up a Rust project to use PKRU-Safe as well as demonstrate how PKRU-Safe works on a simple example. This programs consists of a single allocation which is shared and then written in a 
 simple C library. For a simple walk through of how to build and run this project, see the 
 [Building A Project](#building-a-project) section.
 
 ### Micro-benchmarks
 
-[Micro-benchmarks](tests/micro-benchmarks) is a micro-benchmark for testing and logging the 
-overhead of the `mpk-call-gates` and transitions between safe and unsafe. To build these benchmarks,
-grab and build the repository:
+[Micro-benchmarks](https://github.com/securesystemslab/pkru-safe-bench) is a micro-benchmark for testing and logging the overhead of the `mpk-call-gates` and transitions between safe and unsafe. To build these benchmarks, grab and build the repository:
 
 ```sh
 # Get pkru-safe-benchmarks
@@ -302,7 +312,7 @@ cargo build --release -- -C enable-untrusted=dynamic -Zsanitizer=mpk
 cargo build --release -- -C enable-untrusted=dynamic -C mpk_use=TestResults
 ```
 
-This benchmark has a few options avaiable for ease of use and testing:
+This benchmark has a few options available for ease of use and testing:
 
 * `-p` - profile mode for profiling application
 * `-s` - run iterations through stepped workload
@@ -323,7 +333,7 @@ If you do not include an argument for `<-o>` then the results will print to cons
 
 ### Servo
 
-[Servo](tests/servo/servo) is a prototype web browser engine written in Rust. It is also one of
+[Servo](https://github.com/securesystemslab/pkru-safe-servo) is a web browser engine written in Rust. It is also one of
 the largest Rust programs currently available and thus makes for a good target for testing 
 PKRU-Safe's abilities. To test PKRU-Safe on Servo, it is highly recommended that you use the 
 [pre-built image][docker-image] as it will have artifacts of all of the versions of Servo already
@@ -354,7 +364,7 @@ cd automation
 
 The [pre-built image][docker-image] will contain a folder of pre-built artifacts that you 
 can test as well. For an overview of the docker container layout, see reference in 
-[Author's Docker Container](#author's-docker-container). Within the artifacts folder will
+[Author's Docker Container](#author-docker-container). Within the artifacts folder will
 be the following Servo artifacts:
 
 * artifacts
@@ -366,20 +376,48 @@ be the following Servo artifacts:
 
 To run these pre-built artifacts instead of building your own from the instructions above:
 
+1. Bench artifacts
 ```sh
 # Move to automation folder
 cd automation
 
+# Benchmark artifacts (by default puts results into mpk-test-dir folder)
+./bench_artifacts.sh
+
+# Separate benchmarking script for dromaeo as it takes significantly longer than the other test suites
+./bench_artifacts_dromaeo.sh
+```
+
+2. Test exploit on artifacts
+```sh
 # Test exploit protection. This runs the exploit 3 times as Servo does not always grab the correct 
 # memory range for the simplified exploit to work.
 ./test_exploit.sh
+```
+## Citation
 
-# Benchmark artifacts (by default puts results into mpk-test-dir folder)
-./bench_artifacts.sh
+If you find this work useful, please cite our work as follows:
+
+```
+@inproceedings{TBD2022pkru-safe,
+    author = {Kirth, Paul and Dickerson, Mitchel and Crane, Stephen and Larsen, Per and Dabrowski, Adrian and Gens, David and Na, Yeoul and Volckaert, Stijn and Franz, Michael},
+    title = {PKRU-Safe: Automatically Locking Down the Heap Between Safe and Unsafe Languages},
+    year = {2021},
+    isbn = {nnnnnnnnnnnnn},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/nnnnnn.nnnnnn},
+    doi = {10.1145/nnnnnn.nnnnnn},
+    booktitle = {TBD},
+    pages = {TBD},
+    numpages = {14},
+    keywords = {compiler techniques and optimizations, software security},
+    location = {TBD},
+    series = {TBD}
+}
 ```
 
-
-[docker-image]: https://TODO
-[docker-file]: automation/Dockerfile
+[docker-image]: https://hub.docker.com/r/mgdickerson/pkru-safe
+[docker-file]: https://github.com/securesystemslab/pkru-safe-automation/blob/main/Dockerfile
 [paper-link]: TODO
-[mwe]: https://github.com/securesystemslab/pkru-safe-example.git
+[mwe]: https://github.com/securesystemslab/pkru-safe-example
