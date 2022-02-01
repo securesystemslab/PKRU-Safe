@@ -1,0 +1,54 @@
+[submodule "instrumentation/pkalloc"]
+	path = instrumentation/pkalloc
+	url = https://github.com/securesystemslab/pkru-safe-pkalloc.git
+[submodule "instrumentation/mpk-libc"]
+	path = instrumentation/mpk-libc
+	url = https://github.com/securesystemslab/pkru-safe-mpk-libc.git
+[submodule "instrumentation/pkmallocator"]
+	path = instrumentation/pkmallocator
+	url = https://github.com/securesystemslab/pkru-safe-pkmallocator.git
+[submodule "instrumentation/mpk-protector"]
+	path = instrumentation/mpk-protector
+	url = https://github.com/securesystemslab/pkru-safe-mpk-protector.git
+[submodule "tests/servo/Kraken"]
+	path = tests/servo/Kraken
+	url = https://github.com/securesystemslab/pkru-safe-kraken.git
+[submodule "tests/servo/Octane2"]
+	path = tests/servo/Octane2
+	url = https://github.com/securesystemslab/pkru-safe-octane2.git
+[submodule "tests/servo/JetStream2"]
+	path = tests/servo/JetStream2
+	url = https://github.com/securesystemslab/pkru-safe-JetStream2.git
+[submodule "tests/servo/mozjs"]
+	path = tests/servo/mozjs
+	url = https://github.com/securesystemslab/pkru-safe-mozjs.git
+[submodule "tests/servo/rust-mozjs"]
+	path = tests/servo/rust-mozjs
+	url = https://github.com/securesystemslab/pkru-safe-rust-mozjs.git
+[submodule "tests/servo/servo"]
+	path = tests/servo/servo
+	url = git@github.com:securesystemslab/pkru-safe-servo.git
+	branch = pkru-safe-step
+[submodule "tests/micro-benchmarks"]
+	path = tests/micro-benchmarks
+	url = https://github.com/securesystemslab/pkru-safe-bench.git
+[submodule "cargo"]
+	path = cargo
+	url = https://github.com/securesystemslab/pkru-safe-cargo.git
+[submodule "llvm-project"]
+	path = llvm-project
+	url = https://github.com/securesystemslab/llvm-project.git
+	branch = pkru-safe
+[submodule "rust"]
+	path = rust
+	url = https://github.com/securesystemslab/rust.git
+	branch = pkru-safe
+[submodule "tests/pkru-safe-example"]
+	path = tests/pkru-safe-example
+	url = https://github.com/securesystemslab/pkru-safe-example.git
+[submodule "tests/servo/pkru-safe-cve-html"]
+	path = tests/servo/pkru-safe-cve-html
+	url = https://github.com/securesystemslab/pkru-safe-cve-html.git
+[submodule "automation"]
+	path = automation
+	url = https://github.com/securesystemslab/pkru-safe-automation.git
