@@ -151,7 +151,7 @@ Downloading Rust is required to get rustup for setting up our own Rust toolchain
 a nightly toolchain or none.
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustu.rs | sh -s -- --default-toolchain none -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
 source $HOME/.cargo/bin
 ```
 
