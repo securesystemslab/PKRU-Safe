@@ -386,6 +386,13 @@ cd automation
 
 # Separate benchmarking script for dromaeo as it takes significantly longer than the other test suites
 ./bench_artifacts_dromaeo.sh
+
+# Gather benchmark results into data folder
+./gather_benchmarks.sh
+
+# Generate normalized overhead table output (to stdout) and graphs in the `graphs` folder
+# (WARNING: This step requires running the `python-requirements.sh` script to update Python3 with the required packages)
+python3 pkru_runner.py
 ```
 
 2. Test exploit on artifacts
