@@ -395,6 +395,26 @@ cd automation
 python3 pkru_runner.py
 ```
 
+It is possible that while running the Dromaeo artifact benchmark it will trigger a spurious bug causing a Rust runtime exception:
+
+```
+DomRefCell<T> already mutably borrowed: BorrowError (thread ScriptThread PipelineId { namespace_id: PipelineNamespaceId(1), index: PipelineIndex(1) }, at src/libcore/result.rs:999)
+[2022-02-15T19:28:38Z ERROR servo] DomRefCell<T> already mutably borrowed: BorrowError
+Pipeline failed in hard-fail mode.  Crashing!
+```
+
+This issue is present in the unmodified version of Servo that we branched from and appears to depend largely
+on hardware configuration. We have found that reducing the number of iterations the Dromaeo test bench 
+runs will significantly reduce the likelihood of encountering this issue. To reduce the iterations, you will
+need to alter the `numTests` variable in the [webrunner.js]() file. In the docker container, this will be 
+located at `$HOME/mpk-test-dir/servo-step-no-mpk/tests/dromaeo/dromaeo/web/webrunner.js`.
+
+```
+# “numTests” on Line 8 controls the number of iterations for a test.
+# Reducing it to 4 (or lower) should allow the benchmark suite to complete. 
+Var numTests = 5;
+```
+
 2. Test exploit on artifacts
 ```sh
 # Test exploit protection. This runs the exploit 3 times as Servo does not always grab the correct 
