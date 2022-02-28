@@ -406,7 +406,9 @@ Pipeline failed in hard-fail mode.  Crashing!
 This issue is present in the unmodified version of Servo that we branched from and appears to depend largely
 on hardware configuration. We have found that reducing the number of iterations the Dromaeo test bench 
 runs will significantly reduce the likelihood of encountering this issue. To reduce the iterations, you will
-need to alter the `numTests` variable in the [webrunner.js]() file. In the docker container, this will be 
+need to alter the `numTests` variable in the 
+[webrunner.js](https://github.com/notriddle/dromaeo/blob/0df04c071f49dce9ecf578c4e152706aacc886f1/dep/web/webrunner.js#L8) 
+file. In the docker container, this will be 
 located at `$HOME/mpk-test-dir/servo-step-no-mpk/tests/dromaeo/dromaeo/web/webrunner.js`.
 
 ```
