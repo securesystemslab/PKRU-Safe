@@ -421,26 +421,32 @@ Var numTests = 5;
 # memory range for the simplified exploit to work.
 ./test_exploit.sh
 ```
+
+## Acknowledgements
+
+This material is based upon work partially supported by the
+Defense Advanced Research Projects Agency (DARPA) under
+contracts W31P4Q-20-C-0052 and W912CG-21-C-0020. Any
+opinions, findings, and conclusions or recommendations ex-
+pressed in this material are those of the authors and do not
+necessarily reflect the views of the Defense Advanced Re-
+search Projects Agency (DARPA), its Contracting Agents, or
+any other agency of the U.S. Government. We also thank the
+Donald Bren School of Information and Computer Science
+at UCI for an ICS Research Award.
+
 ## Citation
 
 If you find this work useful, please cite our work as follows:
 
 ```
-@inproceedings{TBD2022pkru-safe,
-    author = {Kirth, Paul and Dickerson, Mitchel and Crane, Stephen and Larsen, Per and Dabrowski, Adrian and Gens, David and Na, Yeoul and Volckaert, Stijn and Franz, Michael},
-    title = {PKRU-Safe: Automatically Locking Down the Heap Between Safe and Unsafe Languages},
-    year = {2021},
-    isbn = {nnnnnnnnnnnnn},
-    publisher = {Association for Computing Machinery},
-    address = {New York, NY, USA},
-    url = {https://doi.org/10.1145/nnnnnn.nnnnnn},
-    doi = {10.1145/nnnnnn.nnnnnn},
-    booktitle = {TBD},
-    pages = {TBD},
-    numpages = {14},
-    keywords = {compiler techniques and optimizations, software security},
-    location = {TBD},
-    series = {TBD}
+@inproceedings{kirth2022pkrusafe,
+author = {Kirth, Paul and Dickerson, Mitchel and Crane, Stephen and Larsen, Per and Dabrowski, Adrian and Gens, David and Na, Yeoul and Volckaert, Stijn and Franz, Michael},
+title = {{PKRU}-Safe: Automatically Locking Down the Heap Between Safe and Unsafe Languages},
+year = {2022},
+booktitle = {Proceedings of the Seventeenth European Conference on Computer Systems},
+location = {Rennes, France},
+series = {EuroSys '22}
 }
 ```
 
