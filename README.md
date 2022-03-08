@@ -9,6 +9,8 @@ documentation.
 
 PKRU-Safe is distributed under the MIT license, see [LICENSE-MIT](https://github.com/securesystemslab/PKRU-Safe/blob/main/LICENSE-MIT) for details.
 
+[![DOI](https://zenodo.org/badge/454219997.svg)](https://zenodo.org/badge/latestdoi/454219997)
+
 ## Documentation Quick Links
 
 * [Repository Overview](#repository-overview)
