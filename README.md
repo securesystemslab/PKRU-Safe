@@ -446,6 +446,7 @@ If you find this work useful, please cite our work as follows:
 author = {Kirth, Paul and Dickerson, Mitchel and Crane, Stephen and Larsen, Per and Dabrowski, Adrian and Gens, David and Na, Yeoul and Volckaert, Stijn and Franz, Michael},
 title = {{PKRU}-Safe: Automatically Locking Down the Heap Between Safe and Unsafe Languages},
 year = {2022},
+doi = {https://doi.org/10.1145/3492321.3519582},
 booktitle = {Proceedings of the Seventeenth European Conference on Computer Systems},
 location = {Rennes, France},
 series = {EuroSys '22}
@@ -454,5 +455,5 @@ series = {EuroSys '22}
 
 [docker-image]: https://hub.docker.com/r/mgdickerson/pkru-safe
 [docker-file]: https://github.com/securesystemslab/pkru-safe-automation/blob/main/Dockerfile
-[paper-link]: TODO
+[paper-link]: https://doi.org/10.1145/3492321.3519582
 [mwe]: https://github.com/securesystemslab/pkru-safe-example
